@@ -55,6 +55,11 @@ topicPropFilePtr.close()
 
 documentFilePtr = open("singleTopicDocuments.txt", "w")
 
+# create document as bag of words format
+docWordMat = [ [0 for i in range(vocabsize)] for j in range(numDocuments) ]
+
+
+
 # generate documents...
 for j in range(numDocuments):
 	# generate document-topic distribution using Dirichlet 
@@ -71,6 +76,8 @@ for j in range(numDocuments):
 		# sample word from the topic distribution of the sampled topic 
 		sampledWord = np.random.choice(allWordsIds, 1, True, topicWordDist[sampledTopic])[0]
 
+		docWordMat[j][sampledWord] += 1
+
 		writeStr += str(sampledWord) + " "
 
 	writeStr += "\n"
@@ -80,3 +87,20 @@ for j in range(numDocuments):
 
 documentFilePtr.close()
 
+# print docWordMat
+
+# write matrix (bag of words) format document to file..
+
+documentFilePtr = open("singleTopicDocuments_matrixFormat.txt", "w")
+
+for i in range(len(docWordMat)):
+
+	writeStr = ' '.join([str(docWordMat[i][j]) for j in range(len(docWordMat[i]))]) + "\n"
+
+	documentFilePtr.write(writeStr)
+
+documentFilePtr.close()
+
+
+
+ 
