@@ -1,2 +1,2 @@
 # SketchedLDA
-Sketched LDA
+LDA with sketching and Tensor decomposition.
